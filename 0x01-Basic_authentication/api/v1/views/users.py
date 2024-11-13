@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """ Module of Users views
 """
-from api.v1.views import app_views
+
 from flask import abort, jsonify, request
 from models.user import User
-
+from api.v1.views import app_views
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 def view_all_users() -> str:
@@ -120,3 +120,4 @@ def update_user(user_id: str = None) -> str:
         user.last_name = rj.get('last_name')
     user.save()
     return jsonify(user.to_json()), 200
+

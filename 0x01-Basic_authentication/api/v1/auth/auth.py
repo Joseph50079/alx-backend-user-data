@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
-""" Module of Auth views
-"""
+""" Module of Auth views"""
 
 from flask import json, request, abort
 from typing import List, TypeVar
@@ -32,10 +31,8 @@ class Auth:
     def authorization_header(self, request=None) -> str | None:
         """ authorization_header
         """
-
         if request is None:
             return None
-
         return request.headers.get("Authorization", None)
 
     def current_user(self, request=None) -> TypeVar('User'):

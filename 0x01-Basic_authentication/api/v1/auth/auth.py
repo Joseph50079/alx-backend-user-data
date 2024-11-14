@@ -15,7 +15,7 @@ class Auth:
         """ require_auth
         """
 
-        if path is None or excluded_paths is None or len(excluded_paths) == 0:
+        if path is None or not excluded_paths:
             return True
         elif path[-1] != '/':
             path += '/'
@@ -24,11 +24,12 @@ class Auth:
         else:
             return True
 
-    def authorization_header(self, request=None) -> str:
+    def authorization_header(self, request=None) -> str | None:
         """ authorization_header
         """
         if request is None or "Authorization" not in request.headers:
             return None
+        return request.headers["Authorization"]
 
     def current_user(self, request=None) -> TypeVar('User'):
         """ current_user

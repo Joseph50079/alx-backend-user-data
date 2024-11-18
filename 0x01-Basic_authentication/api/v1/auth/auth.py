@@ -37,6 +37,25 @@ class Auth:
         return request.headers.get("Authorization", None)
 
     def current_user(self, request=None) -> TypeVar('User'):
-        """ current_user
-        """
-        return None
+        """ CURRENT USER"""
+
+        if request is None:
+            return None
+        auth_header = request.headers.get("Authorization", None)
+        print(auth_header)
+        if auth_header is None:
+            return None
+        b64_header = self.extract_base64_authorization_header(
+            auth_header)
+        if b64_header is None:
+            return None
+        decoded_header = self.decode_base64_authorization_header(
+            b64_header)
+        if decoded_header is None:
+            return None
+        creditials = self.extract_user_credentials(decoded_header)
+        if creditials is None:
+            return None
+        user = self.user_object_from_credentials(
+            creditials[0], creditials[1])
+        return user
